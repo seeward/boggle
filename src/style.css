@@ -1,0 +1,23 @@
+.dice {
+    width: 100px;
+    height: 50px;
+    background-color: black;
+    border-radius: 5px;
+    color: white;
+  padding-left: 40px;
+  padding-top: 10px;
+    margin: 5px
+
+}
+#shuffle {
+  margin-left: 5px
+}
+#game {
+  position: absolute;
+  left: 10px;
+  width: 420px;
+    height: 280px;
+    margin-left: 25%;
+    background-color: #c1c1c1;
+    border-radius: 5px
+}

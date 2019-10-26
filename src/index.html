@@ -1,0 +1,295 @@
+<html>
+<title>Boggle</title>
+
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src='./lib//main.js'></script>
+
+  <style>
+    .home-main {
+      background: #5812c5;
+      color: #fff;
+      padding: 13%;
+      text-align: center;
+    }
+
+    .blinker {
+      animation: blinker 1.5s linear infinite;
+    }
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .home-main button {
+      background: #fff;
+      color: #5812c5;
+      border-radius: 0;
+      font-weight: 700;
+      width: 16%;
+      height: 50px;
+      top: 4%;
+      margin-top: 3%;
+    }
+
+    .home-main button:hover {
+      transition: 1s ease;
+      color: #5812c5;
+      width: 19%;
+    }
+
+    .content1-left {
+      padding: 9%;
+    }
+
+    .content1-right {
+      padding: 9%;
+      background: #e4e4e4;
+    }
+
+    .home-content2 {
+      background: #adb5bd;
+      padding: 1.4%;
+      text-align: center;
+    }
+
+    .home-content2 p {
+      font-size: 18px;
+      line-height: 50px;
+    }
+
+    .home-content2 p span {
+      font-weight: 500;
+    }
+
+    .dice {
+      width: 100px;
+      height: 50px;
+      background-color: black;
+      border-radius: 5px;
+      color: white;
+      padding-left: 40px;
+      padding-top: 10px;
+      margin: 5px
+    }
+
+    #shuffle {
+      margin-left: 0px
+    }
+
+    #game {
+      /* position: absolute;
+      left: 0px;
+      top: 0px; */
+      width: 420px;
+      height: 280px;
+      margin-top: 0px;
+      background-color: #c1c1c1;
+      border-radius: 5px
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+  </div>
+  <div class="container-fluid home-content1">
+    <div class="row">
+      <div style="margin-top:-50px" class="col-md-6 content1-left">
+        <div id="game" class="container">
+
+          <div class="row">
+            <div id="1" class="col-sm dice">
+            </div>
+            <div id="2" class="col-sm dice">
+            </div>
+            <div id="3" class="col-sm dice">
+            </div>
+            <div id="4" class="col-sm dice">
+            </div>
+          </div>
+          <div class="row">
+            <div id="5" class="col-sm dice">
+            </div>
+            <div id="6" class="col-sm dice">
+            </div>
+            <div id="7" class="col-sm dice">
+            </div>
+            <div id="8" class="col-sm dice">
+            </div>
+          </div>
+          <div class="row">
+            <div id="9" class="col-sm dice">
+            </div>
+            <div id="10" class="col-sm dice">
+            </div>
+            <div id="11" class="col-sm dice">
+            </div>
+            <div id="12" class="col-sm dice">
+            </div>
+          </div>
+          <div class="row">
+            <div id="13" class="col-sm dice">
+            </div>
+            <div id="14" class="col-sm dice">
+            </div>
+            <div id="15" class="col-sm dice">
+            </div>
+            <div id="16" class="col-sm dice">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <button class="btn btn-sm btn-success" style="width: 100%"onclick="reset()" id="shuffle">Shuffle</button>
+            </div>
+          
+          </div>
+          <div style="margin-top: 25px;text-align: center;" class="row">
+              <div class="col-lg-12">
+                  <div class="progress" style="margin-top: 7px">
+                    <div id="bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                      aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%; display: none"></div>
+                  </div>
+                </div>
+          </div>
+         
+        </div>
+      </div>
+      <div class="col-md-6 content1-right">
+        <div class="container">
+          <div class="row" style="margin-top: -50px">
+            <div class="col-sm-12" style="text-align: center;">
+              <div id="intro">
+                  <p>Boogle.</p>
+                  <p>Find words by connecting the letters that are touching.</p>
+                  <ul style="list-style: none;">
+                    <li>3 letter words - 1 point</li>
+                    <li>4 letter words - 2 point</li>
+                    <li>5 letter words - 3 point</li>
+                    <li>6 letter words - 4 point</li>
+                    <li>7 letter words - 5 point</li>
+                    <li>8 letter words - 6 point</li>
+                  </ul>
+              </div>
+              
+              <Input disabled placeholder="Type words here..." type="text" id="words" style="width: 100%;display:none" />
+
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div style="margin-top: 20px;padding-left: 15px;font-size: 20px;height: 250px;overflow: scroll" id="wordsHolder"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid home-content2">
+        <div class="row">
+          <div style="height: 250px; overflow: scroll;margin-left: 20px; margin-top: 20px;width: 100%;font-size:20px;text-align: center;" id="score"></div>
+          <br />
+        </div>
+  </div>
+
+
+
+  <!-- <div class="container-fluid">
+    <div style="width: 100%"  class="row align-items-center justify-content-center">
+      <div class="col-lg-1 col-md-1"></div>
+      <div class="col-lg-4 col-md-6">
+          <div id="game" class="container-fluid">
+
+              <div class="row">
+                <div id="1" class="col-sm dice">
+                </div>
+                <div id="2" class="col-sm dice">
+                </div>
+                <div id="3" class="col-sm dice">
+                </div>
+                <div id="4" class="col-sm dice">
+                </div>
+              </div>
+              <div class="row">
+                <div id="5" class="col-sm dice">
+                </div>
+                <div id="6" class="col-sm dice">
+                </div>
+                <div id="7" class="col-sm dice">
+                </div>
+                <div id="8" class="col-sm dice">
+                </div>
+              </div>
+              <div class="row">
+                <div id="9" class="col-sm dice">
+                </div>
+                <div id="10" class="col-sm dice">
+                </div>
+                <div id="11" class="col-sm dice">
+                </div>
+                <div id="12" class="col-sm dice">
+                </div>
+              </div>
+              <div class="row">
+                <div id="13" class="col-sm dice">
+                </div>
+                <div id="14" class="col-sm dice">
+                </div>
+                <div id="15" class="col-sm dice">
+                </div>
+                <div id="16" class="col-sm dice">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-2">
+                  <button class="btn btn-sm btn-success" onclick="reset()" id="shuffle">Shuffle</button>
+                </div>
+                <div class="col-sm-10">
+                  <div class="progress" style="margin-top: 7px;margin-left: 5px">
+                    <div id="bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                      aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+          
+              <div style="margin-top: 25px" class="row">
+                <div style="margin-left: 20px" id="score"></div>
+                  <br />
+              </div>
+            </div>
+            
+      </div>
+      <div class="col-lg-3 col-md-2">
+
+
+        <div class="container">
+          <div class="row" style="margin-top: 30px">
+            <div class="col-sm-12">
+
+              <Input disabled type="text" id="words" style="width: 100%" />
+              
+            </div>
+      
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div  style="margin-top: 20px" id="wordsHolder"></div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div> -->
+
+
+</body>
+
+</html>
