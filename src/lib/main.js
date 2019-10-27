@@ -18,6 +18,8 @@ var allDice;
 var intro;
 var progressHolder;
 var goodWords = [];
+var wordcount;
+var wordcountvalue;
 var count,
     scrambled,
     interval = undefined;
@@ -201,44 +203,53 @@ var recursiveLoop = function recursiveLoop(wordArray) {
   //console.log(wordArray)
   if (wordArray.length === 0) {
     // we are done walking the word
-    console.log('finsihed');
+    //console.log('finsihed')
     return true;
   }
 
   var currentLetter = wordArray[0];
   scrambled.forEach(function (eachDice, i) {
-    console.log(eachDice.toLowerCase(), currentLetter.toLowerCase());
-
+    //console.log(eachDice.toLowerCase(), currentLetter.toLowerCase())
     if (eachDice.toLowerCase() === currentLetter.toLowerCase()) {
-      console.log(i);
+      //console.log(i)
       document.getElementById(i + 1).style.backgroundColor = 'red';
     }
   });
   wordArray.shift();
   recursiveLoop(wordArray);
+};
+
+var checkAllLetters = function checkAllLetters(word) {
+  var wordArr = _toConsumableArray(word);
+
+  wordArr.forEach(function (eachLetter) {
+    var check = false;
+    scrambled.forEach(function (eachDice) {
+      if (eachLetter === eachDice) {
+        check = true;
+      }
+    });
+  });
+};
+
+var restart = function restart() {
+  window.location.reload();
 }; // starts and resets all game elements
 
 
 var reset = function reset() {
-  // DOM elements
+  words = undefined; // DOM elements
+
   g = document.getElementById("game");
   pBar = document.getElementById("bar");
-  words = document.getElementById("words");
   intro = document.getElementById("intro");
-  intro.style.display = 'none';
-  words.disabled = false;
-  words.style.display = 'inline';
-  pBar.style.display = 'block';
-  words.addEventListener('keyup', function (e) {
-    if (event.key === "Enter") {
-      if (words.value.length < 3) {
-        scrambled.forEach(function (eachDice, i) {
-          document.getElementById((i + 1).toString()).style.backgroundColor = 'black';
-        });
-        scoreText.innerHTML = "Only 3 letter words or more";
-        return;
-      }
+  wordcount = document.getElementById("wordcount");
+  words = document.getElementById("words");
+  wordcountvalue = 0; // wordcount.innerHTML = 0
+  // intro.style.display = 'none';
 
+  words.addEventListener('keyup', function (e) {
+    if (e.key === "Enter") {
       if (!dict.hasOwnProperty(words.value)) {
         scrambled.forEach(function (eachDice, i) {
           document.getElementById((i + 1).toString()).style.backgroundColor = 'black';
@@ -247,8 +258,35 @@ var reset = function reset() {
       } else {
         walkWord(words.value);
 
+        var arrWord = _toConsumableArray(words.value);
+
+        var checkFlag = true;
+        arrWord.forEach(function (eachLetter) {
+          var filterd = scrambled.filter(function (eachDice) {
+            return eachDice.toLowerCase() === eachLetter.toLowerCase();
+          });
+          console.log(filterd);
+
+          if (filterd.length === 0) {
+            checkFlag = false;
+          }
+        });
+        console.log(checkFlag);
+
+        if (!checkFlag) {
+          scoreText.innerHTML = "Letters used that are not on board";
+          setTimeout(function () {
+            scrambled.forEach(function (eachDice, i) {
+              document.getElementById((i + 1).toString()).style.backgroundColor = 'black';
+            });
+          }, 1000);
+          return;
+        }
+
         if (true) {
           goodWords.push(words.value);
+          wordcountvalue++;
+          wordcount.innerHTML = wordcountvalue;
           currentWord = {};
           lastlocn = '';
           setTimeout(function () {
