@@ -15,7 +15,7 @@ var wordcountvalue;
 var count, scrambled, interval = undefined;
 var lastlocn = undefined
 var prevLetter;
-var STANDARD_CUBES = ["AAEEGN", "ABBJOO", "ACHOPS", "AFFKPS", "AOOTTW", "CIMOTU", "DEILRX", "DELRVY", "DISTTY", "EEGHNW", "EEINSU", "EHRTVW", "EIOSST", "ELRTTY", "HIMNQU", "HLNNRZ"];
+var STANDARD_CUBES = ["AAEEGN", "ABBJOO", "ACHOPS", "AFFKPS", "AOOTTW", "CIMOTU", "DEILRX", "DELRVY", "DISTTY", "EEGHNW", "EEINSU", "EHRTVW", "EIOSST", "ELRTTY", "HIMNIU", "HLNNRZ"];
 var dict = {};
 // a map of adjacent dice for word checking
 var workCheckMap = {
